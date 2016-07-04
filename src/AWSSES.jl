@@ -21,7 +21,7 @@ using Retry
 
 
 
-function ses(aws, query)
+function ses(aws::AWSConfig, query)
 
     query["AWSAccessKeyId"] = aws[:creds].secret_key
 
@@ -33,7 +33,7 @@ function ses(aws, query)
 end
 
 
-function ses_send(aws; to="", from="", subject="", body="")
+function ses_send(aws::AWSConfig; to="", from="", subject="", body="")
 
     ses(aws, Dict(
         "Action" => "SendEmail",
@@ -44,7 +44,7 @@ function ses_send(aws; to="", from="", subject="", body="")
 end
 
 
-function ses_send_raw(aws; to="", from="", raw="")
+function ses_send_raw(aws::AWSConfig; to="", from="", raw="")
 
     ses(aws, Dict(
         "Action" => "SendRawEmail",
@@ -57,8 +57,9 @@ end
 #    e.g. attachments=[("bar.txt", "text/plain", "bar\n"),
 #                      ("foo.txt", "text/plain", "foo\n")])
 
-function  ses_send_attachments(aws; to="", from="", subject="", body="",
-                                    attachments=[])
+function  ses_send_attachments(aws::AWSConfig;
+                               to="", from="", subject="", body="",
+                               attachments=[])
 
     ses_send_raw(
         aws,
