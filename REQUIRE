@@ -1,2 +1,4 @@
 julia 0.5
-AWSCore
+AWSCore 0.1
+SymDict
+Retry
