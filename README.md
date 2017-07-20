@@ -4,6 +4,8 @@ AWS SES Interface for Julia
 
 [![Build Status](https://travis-ci.org/samoconnor/AWSSES.jl.svg)](https://travis-ci.org/samoconnor/AWSSES.jl)
 
+[Documentation](https://juliacloud.github.io/AWSCore.jl/build/AWSSES.html)
+
 ```julia
 using AWSSES
 
