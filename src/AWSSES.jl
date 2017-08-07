@@ -21,16 +21,7 @@ using Retry
 
 
 
-function ses(aws::AWSConfig, query)
-
-    query["AWSAccessKeyId"] = aws[:creds].secret_key
-
-    if aws[:creds].token != ""
-        query["SecurityToken"] = aws[:creds].token
-    end
-
-    do_request(post_request(aws, "email", "", query))
-end
+const ses = AWSCore.Services.email
 
 
 """
@@ -50,8 +41,7 @@ ses_send(
 
 function ses_send(aws::AWSConfig; to="", from="", subject="", body="")
 
-    ses(aws, Dict(
-        "Action" => "SendEmail",
+    ses(aws, "SendEmail", Dict(
         "Source" => from,
         "Destination.ToAddresses.member.1" => to,
         "Message.Subject.Data" => subject,
@@ -71,8 +61,7 @@ Send a raw email.
 
 function ses_send_raw(aws::AWSConfig; to="", from="", raw="")
 
-    ses(aws, Dict(
-        "Action" => "SendRawEmail",
+    ses(aws, "SendRawEmail", Dict(
         "Source" => from,
         "Destination.ToAddresses.member.1" => to,
         "RawMessage.Data" => base64encode(raw)))
