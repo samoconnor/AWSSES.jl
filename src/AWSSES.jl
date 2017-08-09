@@ -21,7 +21,7 @@ using Retry
 
 
 
-const ses = AWSCore.Services.email
+ses(aws::AWSConfig, action, args) = AWSCore.Services.email(aws, action, args)
 
 
 """
